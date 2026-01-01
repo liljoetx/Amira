@@ -447,7 +447,7 @@
     <section class="card section" id="videos">
       <h2>ألبوم فيديوهاتنا 🎥💗</h2>
       <div class="mini">
-        هنا بس <b>Videos/video.mp4</b> و <b>Videos/video2.mp4</b>.
+        هنا بس <b>./Videos/video.mp4</b> و <b>./Videos/video2.mp4</b>.
       </div>
       <div class="videoGrid" id="videoGrid"></div>
       <div class="mini" id="videoHint" style="margin-top:8px"></div>
@@ -490,22 +490,22 @@
     // مساراتك زي ما قلت
     // =======================
     // Timeline الصور/الفيديو:
-    const photo1 = "Photos/photo1.jpeg";
-    const photo2 = "Photos/photo2.jpeg";
-    const photo3 = "Photos/photo3.jpeg";
-    const video1 = "Videos/video.mp4";
+    const photo1 = "./Photos/photo1.jpeg";
+    const photo2 = "./Photos/photo2.jpeg";
+    const photo3 = "./Photos/photo3.jpeg";
+    const video1 = "./Videos/video.mp4";
 
     // Album صورنا: photo4 + photo5 فقط
     const PHOTOS_ALBUM = [
-      { src: "Photos/photo4.jpeg", caption: "💗", landscape: false },
+      { src: "./Photos/photo4.jpeg", caption: "💗", landscape: false },
       // لو الصورة اللي بالعرض هي photo5: خلّيه landscape:true
-      { src: "Photos/photo5.jpeg", caption: "💗", landscape: true }
+      { src: "./Photos/photo5.jpeg", caption: "💗", landscape: true }
     ];
 
     // Album فيديوهاتنا: video.mp4 + video2.mp4
     const VIDEOS_ALBUM = [
-      "Videos/video.mp4",
-      "Videos/video2.mp4"
+      "./Videos/video.mp4",
+      "./Videos/video2.mp4"
     ];
 
     // =======================
@@ -793,7 +793,7 @@
       function updateVideoHint(){
         const hint = document.getElementById("videoHint");
         hint.textContent = missingCount
-          ? `في ${missingCount} فيديو/ات مش ظاهرين. اتأكد إنهم موجودين داخل فولدر Videos وبنفس الاسم (مثال: Videos/video2.mp4).`
+          ? `في ${missingCount} فيديو/ات مش ظاهرين. اتأكد إنهم موجودين داخل فولدر Videos وبنفس الاسم (مثال: ./Videos/video2.mp4).`
           : "";
       }
 
