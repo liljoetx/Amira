@@ -810,31 +810,43 @@
       });
 
       // Counter: MM:DD:HH:MM:SS:MS
-      const counterEl = document.getElementById("counter");
+const elM  = document.getElementById("m");
+const elD  = document.getElementById("d");
+const elH  = document.getElementById("h");
+const elMi = document.getElementById("mi");
+const elS  = document.getElementById("s");
+const elMs = document.getElementById("ms");
 
-      function tick(){
-        const now = new Date();
-        if(now < startDate){
-          counterEl.textContent = "00:00:00:00:00:000";
-          return;
-        }
+function tick(){
+  const now = new Date();
+  if(now < startDate){
+    elM.textContent = "00";
+    elD.textContent = "00";
+    elH.textContent = "00";
+    elMi.textContent = "00";
+    elS.textContent = "00";
+    elMs.textContent = "000";
+    return;
+  }
 
-        const { months, remMs } = diffMonthsAndRemainder(startDate, now);
+  const { months, remMs } = diffMonthsAndRemainder(startDate, now);
 
-        let ms = remMs;
+  let ms = remMs;
+  const days = Math.floor(ms / 86400000); ms -= days * 86400000;
+  const hours = Math.floor(ms / 3600000); ms -= hours * 3600000;
+  const mins = Math.floor(ms / 60000); ms -= mins * 60000;
+  const secs = Math.floor(ms / 1000); ms -= secs * 1000;
+  const millis = Math.floor(ms);
 
-        const days = Math.floor(ms / 86400000); ms -= days * 86400000;
-        const hours = Math.floor(ms / 3600000); ms -= hours * 3600000;
-        const mins = Math.floor(ms / 60000); ms -= mins * 60000;
-        const secs = Math.floor(ms / 1000); ms -= secs * 1000;
-        const millis = Math.floor(ms);
-
-        // MM:DD:HH:MM:SS:MS
-        counterEl.textContent =
-          `${pad2(months)}:${pad2(days)}:${pad2(hours)}:${pad2(mins)}:${pad2(secs)}:${pad3(millis)}`;
-      }
-      tick();
-      setInterval(tick, 50); // تحديث سريع للملي-ثانية
+  elM.textContent  = String(months).padStart(2,"0");
+  elD.textContent  = String(days).padStart(2,"0");
+  elH.textContent  = String(hours).padStart(2,"0");
+  elMi.textContent = String(mins).padStart(2,"0");
+  elS.textContent  = String(secs).padStart(2,"0");
+  elMs.textContent = String(millis).padStart(3,"0");
+}
+tick();
+setInterval(tick, 50);
     }
   </script>
 </body>
