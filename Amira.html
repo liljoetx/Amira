@@ -486,6 +486,8 @@
     const herName = "أميرة";
     const startDate = new Date("2025-11-27T13:00:00");
     const annivText = "27/11/2025";
+    const VERSION = "v3";  // غيرها كل مرة تغيّر ملفات
+    const V = (p) => `${p}?${VERSION}`;
 
     // الأغنية (حط اسم الملف الحقيقي هنا)
     // مثال: Assets/Musics/song.mp3
@@ -737,7 +739,7 @@
 
             const note = document.createElement("div");
             note.className="tNote";
-            note.textContent = "دوس/ي على الصورة عشان تتفتح ❤️";
+            note.textContent = "دوسي على الصورة عشان تتفتح ❤️";
             media.appendChild(note);
           } else if(item.video){
             const vMini = document.createElement("div");
@@ -748,7 +750,7 @@
             const vWrap = document.createElement("div");
             const v = document.createElement("video");
             v.controls = true;
-            v.src = item.video;
+            v.src = V(item.video);
             v.onerror = ()=> { vWrap.innerHTML = "<div class='tNote'>الفيديو مش موجود في المسار ده.</div>"; };
             vWrap.appendChild(v);
             media.appendChild(vWrap);
@@ -790,7 +792,7 @@
       VIDEOS_ALBUM.forEach((src)=>{
         const v = document.createElement("video");
         v.controls = true;
-        v.src = src;
+        v.src = V(src);
         v.onerror = ()=>{ v.style.display="none"; missingCount++; updateVideoHint(); };
         vgrid.appendChild(v);
       });
