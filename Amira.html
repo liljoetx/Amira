@@ -387,7 +387,7 @@
           ❤️ Amira • أول يوم لينا: <span id="anniv"></span> • <span>ذكرياتنا كلها ✨</span>
         </div>
 
-        <div class="big">أحلى حكاية في حياتي </div>
+        <div class="big">احلى حكايه في حياتي </div>
         <p class="loveLine" id="loveLine"></p>
 
         <div class="musicRow">
@@ -406,12 +406,12 @@
 
     <section class="grid">
       <div class="card section">
-        <h2>رسايل لأميرتي 😄❤️</h2>
+        <h2>رسايل لأميرتي ❤️</h2>
         <div class="messages" id="messages"></div>
       </div>
 
       <div class="card section">
-        <h2>عداد حبنا ⏳💞</h2>
+        <h2>عيد ميلاد حبنا ⏳💞</h2>
         <div class="mini">
           بالشكل ده: <b>MM:DD:HH:MM:SS:MS</b> (شهور:أيام:ساعات:دقايق:ثواني:ملّي ثانية)
         </div>
@@ -421,7 +421,7 @@
   <div class="msg"><b>ساعات:</b> <span id="h">00</span></div>
   <div class="msg"><b>دقايق:</b> <span id="mi">00</span></div>
   <div class="msg"><b>ثواني:</b> <span id="s">00</span></div>
-  <div class="msg"><b>ملّي ثانية:</b> <span id="ms">000</span></div>
+  <div class="msg"><b>ملي ثانية:</b> <span id="ms">000</span></div>
 </div>
 <div class="mini">من يوم <b>27/11/2025 الساعة 1 الضهر</b>… وإحنا سوا ❤️</div>
 
@@ -458,7 +458,7 @@
       <div class="mini">دي بتبان بس لما أميرتي تدوس…</div>
 
       <div class="secret">
-        <button class="revealBtn" id="revealBtn">دوسي هنا يا أميرة 👑</button>
+        <button class="revealBtn" id="revealBtn">دوسي 👑</button>
         <div class="secretMsg" id="secretMsg">
           يا أميرة… <b>أنا بحبك حب</b> مش بيتوصف.  
           وبيخلّيني دايمًا عايز أبقى أحسن عشانك.  
@@ -478,7 +478,7 @@
     // SETTINGS
     // =======================
     const PASSWORD = "562007";
-    const herName = "أميرة";
+    const herName = "أميره";
     const startDate = new Date("2025-11-27T13:00:00");
     const annivText = "27/11/2025";
     const VERSION = "v3";  // غيرها كل مرة تغيّر ملفات
@@ -627,10 +627,10 @@
         }else{
           audio.pause();
           musicOn = false;
-          musicBtn.textContent = "🎵 تشغيل الأغنية";
+          musicBtn.textContent = "دوسي هنا";
         }
       }catch(e){
-        musicHint.textContent = "لو الأغنية مش شغّالة: اتأكد إن الملف موجود في Assets/Musics واسمُه مطابق للكود.";
+        musicHint.textContent = "";
       }
     });
 
@@ -797,7 +797,7 @@
       revealBtn.addEventListener("click", ()=>{
         const show = secretMsg.style.display !== "block";
         secretMsg.style.display = show ? "block" : "none";
-        revealBtn.textContent = show ? "اقفلي الرسالة 🙈" : "اضغطي هنا يا أميرة 👑";
+        revealBtn.textContent = show ? "اقفلي" : "دوسي";
       });
 
       // Counter: MM:DD:HH:MM:SS:MS
