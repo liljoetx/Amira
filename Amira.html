@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amira ❤️</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#1b0b2a;
+      --glass: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --accent:#ff4d8d;
+      --accent2:#ffb3cc;
+      --ok:#39d98a;
+      --bad:#ff5b5b;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      color:var(--text);
+      min-height:100vh;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(255,77,141,.35), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(122,76,255,.22), transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* floating hearts layer */
+    .hearts{
+      position:fixed; inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+    .heart{
+      position:absolute;
+      width:18px;height:18px;
+      transform:rotate(45deg);
+      opacity:.85;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.25));
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:18px;height:18px;
+      border-radius:50%;
+      background: var(--accent);
+    }
+    .heart{ background: var(--accent); }
+    .heart:before{ left:-9px; top:0; }
+    .heart:after{ left:0; top:-9px; }
+    @keyframes floatUp{
+      from{ transform: translateY(30vh) rotate(45deg) scale(.9); }
+      to{ transform: translateY(-120vh) rotate(45deg) scale(1.25); }
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 16px 80px;
+    }
+    .card{
+      background: var(--glass);
+      border:1px solid var(--stroke);
+      border-radius:20px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* gate */
+    .gate{ min-height:100vh; display:grid; place-items:center; padding:24px 16px; }
+    .gate .box{ width:min(560px, 100%); padding:22px; text-align:center; }
+    h1,h2,h3{margin:0 0 10px}
+    h1{ font-size:28px; letter-spacing:.2px; }
+    .subtitle{color:var(--muted); margin-top:6px}
+
+    .row{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; justify-content:center; }
+    input{
+      flex:1 1 260px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.2);
+      outline:none;
+      background: rgba(0,0,0,.18);
+      color:var(--text);
+      font-size:16px;
+    }
+    button{
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.22);
+      background: linear-gradient(135deg, rgba(255,77,141,.95), rgba(255,179,204,.85));
+      color:#2b0b1b;
+      font-weight:800;
+      cursor:pointer;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    button:hover{ transform: translateY(-1px); filter:brightness(1.03); }
+    button:active{ transform: translateY(0px) scale(.99); }
+
+    .hint{ margin-top:10px; color:var(--muted); font-size:14px; }
+    .error{ margin-top:10px; color:var(--bad); font-weight:800; display:none; }
+    .success{ margin-top:10px; color:var(--ok); font-weight:800; display:none; }
+
+    /* hero */
+    header.hero{ padding:22px; margin-top:10px; overflow:hidden; position:relative; }
+    .glow{
+      position:absolute; inset:-80px;
+      background:
+        radial-gradient(420px 190px at 80% 25%, rgba(255,77,141,.35), transparent 60%),
+        radial-gradient(380px 160px at 20% 80%, rgba(122,76,255,.26), transparent 60%);
+      filter: blur(6px);
+      opacity:.9;
+      z-index:0;
+    }
+    header.hero .content{ position:relative; z-index:1; }
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.16);
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+    }
+    .big{ font-size:34px; margin-bottom:8px; }
+    .loveLine{ color:var(--muted); font-size:16px; line-height:1.9; max-width:75ch; }
+
+    /* nav */
+    .topNav{
+      margin-top:14px;
+      display:flex; flex-wrap:wrap;
+      gap:10px;
+    }
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.16);
+      color:var(--text);
+      text-decoration:none;
+      font-size:14px;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .chip:hover{ transform: translateY(-1px); filter:brightness(1.05); }
+
+    /* sections */
+    .section{ padding:18px; margin-top:16px; }
+    .mini{ color:var(--muted); font-size:14px; line-height:1.9; }
+
+    /* messages */
+    .messages{ display:grid; gap:10px; margin-top:10px; }
+    .msg{
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      transform: translateY(6px);
+      opacity:0;
+      animation: popIn .6s ease forwards;
+    }
+    .msg:nth-child(2){ animation-delay:.12s;}
+    .msg:nth-child(3){ animation-delay:.24s;}
+    .msg:nth-child(4){ animation-delay:.36s;}
+    .msg:nth-child(5){ animation-delay:.48s;}
+    .msg:nth-child(6){ animation-delay:.60s;}
+    @keyframes popIn{ to{ transform: translateY(0); opacity:1; } }
+
+    /* counter grid */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    /* album */
+    .mediaGrid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (min-width: 560px){
+      .mediaGrid{ grid-template-columns: repeat(4, 1fr); }
+    }
+    .thumb{
+      aspect-ratio: 1/1;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      overflow:hidden;
+      position:relative;
+      cursor:pointer;
+    }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* lightbox */
+    .lightbox{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.75);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+    .lightbox .box{
+      width:min(980px, 100%);
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.35);
+    }
+    .lightbox img{
+      width:100%; height:auto; display:block;
+      background:#000;
+    }
+    .lightbox .bar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .lightbox .bar button{
+      background: rgba(255,255,255,.14);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.18);
+      font-weight:700;
+    }
+
+    /* videos */
+    .videoGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (min-width: 900px){
+      .videoGrid{ grid-template-columns: 1fr 1fr; }
+    }
+    video{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.2);
+    }
+
+    /* timeline */
+    .timeline{
+      position:relative;
+      margin-top:10px;
+      padding-right:18px;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;
+      right:7px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background: linear-gradient(to bottom, rgba(255,77,141,.9), rgba(122,76,255,.25));
+      opacity:.7;
+    }
+    .tItem{
+      position:relative;
+      padding:12px 12px 12px 0;
+      margin-bottom:12px;
+    }
+    .tDot{
+      position:absolute;
+      right:-2px;
+      top:18px;
+      width:16px;height:16px;
+      border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255,77,141,.18);
+    }
+    .tCard{
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+    }
+    .tTop{
+      display:flex;
+      gap:10px;
+      justify-content:space-between;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .tDate{ color:var(--accent2); font-weight:800; }
+    .tTitle{ font-weight:800; }
+    .tText{ color:var(--muted); margin-top:6px; line-height:1.9; }
+    .tMedia{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: 84px 1fr;
+      gap:10px;
+      align-items:center;
+    }
+    .tMedia .miniThumb{
+      width:84px; height:84px;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      display:grid; place-items:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .tMedia img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .tLinks{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .tLinks a{
+      text-decoration:none;
+      color:var(--text);
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.16);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:13px;
+    }
+
+    /* secret */
+    .secret{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
+    .secret .revealBtn{
+      background: linear-gradient(135deg, rgba(122,76,255,.95), rgba(255,77,141,.85));
+      color:#f7f3ff;
+      border:1px solid rgba(255,255,255,.2);
+      font-weight:800;
+    }
+    .secretMsg{
+      display:none;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      color:var(--text);
+      line-height:1.95;
+    }
+
+    footer{ margin-top:16px; text-align:center; color:var(--muted); font-size:13px; }
+
+    #main{ display:none; }
+  </style>
+</head>
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <!-- Password Gate -->
+  <section class="gate" id="gate">
+    <div class="box card">
+      <h1>ممنوع الدخول إلا للأميرة 👑❤️</h1>
+      <div class="subtitle">اكتبي الباسورد (تاريخ ميلادك)</div>
+
+      <div class="row">
+        <input id="pass" type="password" inputmode="numeric" placeholder="مثال: 562007" autocomplete="off"/>
+        <button id="enterBtn">دخول يا أميرتي</button>
+      </div>
+
+      <div class="hint">الباسورد: تاريخ الميلاد… زي ما بينا 💗</div>
+      <div class="error" id="err">الباسورد غلط يا قمري… جرّبي تاني 🥺</div>
+      <div class="success" id="ok">أهلاً يا أميرة… نورتي ❤️</div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="box">
+      <img id="lbImg" alt="preview"/>
+      <div class="bar">
+        <div id="lbCap">—</div>
+        <button id="lbClose">إقفال</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="wrap" id="main">
+
+    <header class="hero card">
+      <div class="glow"></div>
+      <div class="content">
+        <div class="badge">
+          ❤️ Amira • أول يوم لينا: <span id="anniv"></span> •
+          <span>هنا ذكرياتنا كلها ✨</span>
+        </div>
+
+        <div class="big">يا أميرة… انتي أحلى حكاية في حياتي 🥰</div>
+        <p class="loveLine" id="loveLine"></p>
+
+        <nav class="topNav">
+          <a class="chip" href="#timeline">📍 صفحة الذكريات</a>
+          <a class="chip" href="#album">📸 الألبوم</a>
+          <a class="chip" href="#videos">🎥 الفيديوهات</a>
+          <a class="chip" href="#secret">🤫 رسالة سرّية</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="grid">
+      <div class="card section">
+        <h2>رسائل حب مصري على أصوله 😄❤️</h2>
+        <div class="messages" id="messages"></div>
+        <div class="mini">القلوب بتطير… عشان انتي السبب 😌</div>
+      </div>
+
+      <div class="card section">
+        <h2>عداد حبنا ⏳💞</h2>
+        <div class="mini">
+          من يوم <b>27 / 11 / 2025</b>… وإحنا بنكبر سوا خطوة خطوة.
+        </div>
+        <div class="messages" style="margin-top:10px">
+          <div class="msg"><b>أيام:</b> <span id="days">—</span></div>
+          <div class="msg"><b>ساعات:</b> <span id="hours">—</span></div>
+          <div class="msg"><b>دقايق:</b> <span id="mins">—</span></div>
+          <div class="msg"><b>ثواني:</b> <span id="secs">—</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="card section" id="timeline">
+      <h2>صفحة الذكريات 🗓️❤️</h2>
+      <div class="mini">
+        دي أهم لحظاتنا… وإنت تقدر تزود براحتك. كل عنصر في التايملاين تقدر تربطه بـ <b>صورة</b> أو <b>فيديو</b>.
+      </div>
+
+      <div class="timeline" id="timelineBox">
+        <!-- JS will render timeline items from the arrays below -->
+      </div>
+
+      <div class="mini" style="margin-top:10px">
+        ✍️ تزوّد ذكرى جديدة؟ روح للكود تحت في جزء <b>TIMELINE_DATA</b> وزوّد عنصر جديد.
+      </div>
+    </section>
+
+    <!-- ALBUM -->
+    <section class="card section" id="album">
+      <h2>ألبوم صورنا 📸❤️</h2>
+      <div class="mini">
+        ✅ الصور لازم تبقى في فولدر <b>photos</b>، واسمها زي: <b>1.jpg</b> أو <b>2.png</b>…<br>
+        👇 الأماكن دي جاهزة؛ عدّل ليستة الصور من <b>PHOTOS</b> تحت في الكود.
+      </div>
+
+      <div class="mediaGrid" id="albumGrid"></div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="card section" id="videos">
+      <h2>فيديوهاتنا 🎥💗</h2>
+      <div class="mini">
+        ✅ الفيديوهات لازم تبقى في فولدر <b>videos</b>، واسمها زي: <b>1.mp4</b>…<br>
+        👇 عدّل ليستة الفيديوهات من <b>VIDEOS</b> تحت في الكود.
+      </div>
+
+      <div class="videoGrid" id="videoGrid"></div>
+      <div class="mini" id="videoHint" style="margin-top:8px"></div>
+    </section>
+
+    <!-- SECRET -->
+    <section class="card section" id="secret">
+      <h2>رسالة سرّية 🤫❤️</h2>
+      <div class="mini">دي بتبان بس لما أميرة تدوس…</div>
+
+      <div class="secret">
+        <button class="revealBtn" id="revealBtn">اضغطي هنا يا أميرة 👑</button>
+        <div class="secretMsg" id="secretMsg">
+          يا أميرة… <b>أنا بحبك حب</b> مش بيتوصف.  
+          وجودك في حياتي مطمنّي ومفرّحني… وبيخلّيني دايمًا عايز أبقى أحسن عشانك.  
+          <b>وعد مني:</b> أفضل أختارك كل يوم… وأفضل جنبك في كل الظروف ❤️
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      معمول مخصوص للأميرة… من قلب بيحبها بجد ❤️
+    </footer>
+  </main>
+
+  <script>
+    // =======================
+    // SETTINGS (عدّلهم براحتك)
+    // =======================
+    const PASSWORD = "562007"; // باسورد الدخول
+    const herName = "أميرة";
+    const startDate = new Date("2025-11-27T00:00:00"); // أول يوم ارتبطوا فيه
+    const annivText = "27/11/2025";
+
+    // =======================
+    // MEDIA LISTS (أماكن الملفات)
+    // =======================
+    // صور الألبوم: حط ملفاتك في photos/ بالأسامي دي
+    const PHOTOS = [
+      "photos/1.jpg",   // أول صورة
+      "photos/2.png",
+      "photos/3.jpg",
+      "photos/4.jpg",
+      "photos/5.jpg",
+      "photos/6.jpg",
+      // زوّد براحتك:
+      // "photos/7.jpg",
+    ];
+
+    // فيديوهات: حط ملفاتك في videos/ بالأسامي دي
+    const VIDEOS = [
+      "videos/1.mp4",   // أول فيديو
+      "videos/2.mp4",
+      // زوّد براحتك:
+      // "videos/3.mp4",
+    ];
+
+    // =======================
+    // TIMELINE_DATA (صفحة الذكريات)
+    // =======================
+    // تقدر تربط كل ذكرى بصورة أو فيديو (اختياري)
+    const TIMELINE_DATA = [
+      {
+        date: "27/11/2025",
+        title: "أول يوم ارتبطنا ❤️",
+        text: "اليوم اللي اتكتب فيه أجمل فصل… ومنه وأنا كل يوم بحمد ربنا عليكي.",
+        photo: "photos/1.jpg",   // optional
+        video: "videos/1.mp4"    // optional
+      },
+      {
+        date: "—",
+        title: "أول خروجة لينا 🌙",
+        text: "ضحكتك كانت أعلى من أي كلام… وقلبي كان بيقول: دي هي.",
+        photo: "photos/2.png"
+      },
+      {
+        date: "—",
+        title: "أول صورة سوا 📸",
+        text: "الصورة دي لوحدها كفاية تخليني أبتسم كل ما أشوفها.",
+        photo: "photos/3.jpg"
+      },
+      {
+        date: "—",
+        title: "فيديو من أجمل أيامنا 🎥",
+        text: "اللحظات دي بتفكرني إن السعادة ساعات بتبقى بسيطة… بس معاكي عظيمة.",
+        video: "videos/2.mp4"
+      }
+    ];
+
+    // ===== Hearts generator =====
+    const heartsLayer = document.getElementById("hearts");
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      const left = Math.random() * 100;
+      const size = 12 + Math.random() * 18;
+      const dur  = 6 + Math.random() * 8;
+      const delay = Math.random() * 2;
+
+      h.style.left = left + "vw";
+      h.style.bottom = (-10 - Math.random()*20) + "vh";
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+      h.style.animationDuration = dur + "s";
+      h.style.animationDelay = delay + "s";
+      h.style.opacity = (0.55 + Math.random()*0.35).toFixed(2);
+      const hue = (Math.random()*30 - 15);
+      h.style.filter = `drop-shadow(0 8px 12px rgba(0,0,0,.25)) hue-rotate(${hue}deg)`;
+
+      heartsLayer.appendChild(h);
+      setTimeout(()=> h.remove(), (dur + delay) * 1000);
+    }
+    for(let i=0;i<22;i++) spawnHeart();
+    setInterval(spawnHeart, 450);
+
+    // ===== Gate logic =====
+    const gate = document.getElementById("gate");
+    const main = document.getElementById("main");
+    const passInput = document.getElementById("pass");
+    const enterBtn = document.getElementById("enterBtn");
+    const err = document.getElementById("err");
+    const ok = document.getElementById("ok");
+
+    function unlock(){
+      const v = (passInput.value || "").trim();
+      if(v === PASSWORD){
+        err.style.display = "none";
+        ok.style.display = "block";
+        setTimeout(()=>{
+          gate.style.display = "none";
+          main.style.display = "block";
+          window.scrollTo({top:0, behavior:"smooth"});
+          initMain();
+        }, 650);
+      }else{
+        ok.style.display = "none";
+        err.style.display = "block";
+        passInput.focus();
+        passInput.select();
+      }
+    }
+    enterBtn.addEventListener("click", unlock);
+    passInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter") unlock(); });
+
+    // ===== Lightbox =====
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbCap = document.getElementById("lbCap");
+    const lbClose = document.getElementById("lbClose");
+    function openLB(src, cap){
+      lbImg.src = src;
+      lbCap.textContent = cap || src;
+      lightbox.style.display = "flex";
+    }
+    function closeLB(){
+      lightbox.style.display = "none";
+      lbImg.src = "";
+    }
+    lbClose.addEventListener("click", closeLB);
+    lightbox.addEventListener("click", (e)=>{ if(e.target === lightbox) closeLB(); });
+
+    // ===== Main content =====
+    function initMain(){
+      document.getElementById("anniv").textContent = annivText;
+
+      const loveLine = document.getElementById("loveLine");
+      loveLine.textContent =
+        `من يوم ما دخلتي حياتي يا ${herName}… وأنا حاسس إن الدنيا بقت أهدى وأحلى. ` +
+        `بحب ضحكتك وتفاصيلك اللي بتعمل فرق… وبتمنى أفضل دايمًا سبب في سعادتك. ` +
+        `أنا بحبك قوي… وأكتر مما أقدر أشرح.`;
+
+      // رسائل
+      const msgs = [
+        `يا ${herName}… انتي مش بس حبيبتي، انتي راحتي وبيتي ❤️`,
+        `أنا بحبك بطريقة تخلي أي يوم وحش يتحول لحلو أول ما تضحكي 😄`,
+        `من يوم ${annivText} وأنا كل يوم بتأكد إني اخترت صح 💗`,
+        `حتى لو اتخانقنا… قلبي بيرجعلك بسرعة لأنه عارف مكانه.`,
+        `انتي أحلى صدفة… وأجمل قرار… وأغلى حد في حياتي 😌`,
+        `وعد: هفضل أراعيكي… وأطبطب عليكي… وأحافظ عليكي طول العمر ❤️`
+      ];
+      const box = document.getElementById("messages");
+      box.innerHTML = "";
+      msgs.forEach(t=>{
+        const d = document.createElement("div");
+        d.className="msg";
+        d.textContent=t;
+        box.appendChild(d);
+      });
+
+      // album render
+      const album = document.getElementById("albumGrid");
+      album.innerHTML = "";
+      PHOTOS.forEach((src, i)=>{
+        const tile = document.createElement("div");
+        tile.className="thumb";
+        const img = document.createElement("img");
+        img.alt = `صورة ${i+1}`;
+        img.src = src;
+        img.onerror = ()=> {
+          tile.style.cursor = "default";
+          tile.innerHTML = `<div style="padding:10px; color: rgba(255,255,255,.72); font-size:12px; line-height:1.7;">
+            الملف مش موجود:<br><b>${src}</b><br>حطه في نفس المسار
+          </div>`;
+        };
+        tile.appendChild(img);
+        tile.addEventListener("click", ()=> openLB(src, `صورة رقم ${i+1}`));
+        album.appendChild(tile);
+      });
+
+      // videos render
+      const vgrid = document.getElementById("videoGrid");
+      vgrid.innerHTML = "";
+      let missingCount = 0;
+
+      VIDEOS.forEach((src, i)=>{
+        const v = document.createElement("video");
+        v.controls = true;
+        v.src = src;
+        v.onerror = ()=>{ v.style.display="none"; missingCount++; updateVideoHint(); };
+        vgrid.appendChild(v);
+      });
+
+      function updateVideoHint(){
+        const hint = document.getElementById("videoHint");
+        if(missingCount === 0){
+          hint.textContent = "";
+        }else{
+          hint.textContent = `في ${missingCount} فيديو/ات مش ظاهرين. تأكد إنهم موجودين داخل فولدر videos وبنفس الاسم (مثال: videos/1.mp4).`;
+        }
+      }
+
+      // timeline render
+      const tBox = document.getElementById("timelineBox");
+      tBox.innerHTML = "";
+      TIMELINE_DATA.forEach((item)=>{
+        const wrap = document.createElement("div");
+        wrap.className="tItem";
+
+        const dot = document.createElement("div");
+        dot.className="tDot";
+
+        const card = document.createElement("div");
+        card.className="tCard";
+
+        const top = document.createElement("div");
+        top.className="tTop";
+
+        const date = document.createElement("div");
+        date.className="tDate";
+        date.textContent = item.date || "—";
+
+        const title = document.createElement("div");
+        title.className="tTitle";
+        title.textContent = item.title || "ذكرى";
+
+        top.appendChild(title);
+        top.appendChild(date);
+
+        const text = document.createElement("div");
+        text.className="tText";
+        text.textContent = item.text || "";
+
+        card.appendChild(top);
+        card.appendChild(text);
+
+        // media preview + links
+        if(item.photo || item.video){
+          const media = document.createElement("div");
+          media.className="tMedia";
+
+          const miniThumb = document.createElement("div");
+          miniThumb.className="miniThumb";
+
+          if(item.photo){
+            const img = document.createElement("img");
+            img.src = item.photo;
+            img.alt = "صورة ذكرى";
+            img.onerror = ()=> { miniThumb.textContent = "صورة مش موجودة"; };
+            miniThumb.innerHTML = "";
+            miniThumb.appendChild(img);
+            miniThumb.style.cursor = "pointer";
+            miniThumb.addEventListener("click", ()=> openLB(item.photo, item.title));
+          }else{
+            miniThumb.textContent = "بدون صورة";
+          }
+
+          const links = document.createElement("div");
+          links.className="tLinks";
+
+          if(item.photo){
+            const a1 = document.createElement("a");
+            a1.href = "javascript:void(0)";
+            a1.textContent = "فتح الصورة";
+            a1.addEventListener("click", ()=> openLB(item.photo, item.title));
+            links.appendChild(a1);
+          }
+          if(item.video){
+            const a2 = document.createElement("a");
+            a2.href = item.video;
+            a2.textContent = "فتح الفيديو";
+            a2.addEventListener("click", (e)=>{
+              // يفتح في تاب جديدة
+              e.preventDefault();
+              window.open(item.video, "_blank");
+            });
+            links.appendChild(a2);
+          }
+
+          media.appendChild(miniThumb);
+          media.appendChild(links);
+          card.appendChild(media);
+        }
+
+        wrap.appendChild(dot);
+        wrap.appendChild(card);
+        tBox.appendChild(wrap);
+      });
+
+      // secret reveal
+      const revealBtn = document.getElementById("revealBtn");
+      const secretMsg = document.getElementById("secretMsg");
+      revealBtn.addEventListener("click", ()=>{
+        const show = secretMsg.style.display !== "block";
+        secretMsg.style.display = show ? "block" : "none";
+        revealBtn.textContent = show ? "اقفلي الرسالة 🙈" : "اضغطي هنا يا أميرة 👑";
+      });
+
+      // counter
+      function tick(){
+        const now = new Date();
+        let diff = now - startDate;
+        if(diff < 0) diff = 0;
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const mins = Math.floor((totalSeconds % 3600) / 60);
+        const secs = totalSeconds % 60;
+
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("mins").textContent = mins;
+        document.getElementById("secs").textContent = secs;
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
+  </script>
+</body>
+</html>
